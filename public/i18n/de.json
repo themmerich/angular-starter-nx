@@ -1,0 +1,72 @@
+{
+  "shared": {
+    "patterns": {
+      "datePattern": "dd.mm.yyyy"
+    },
+    "table": {
+      "currentPageReport": "Zeige {first} bis {last} von {totalRecords} Einträgen",
+      "emptyMessage": "Keine Einträge gefunden",
+      "searchPlaceholder": "Suchen"
+    },
+    "button": {
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "message": {
+      "success": "Erfolgreich",
+      "info": "Info",
+      "warn": "Warnung",
+      "error": "Fehler"
+    },
+    "address": {
+      "street": "Straße",
+      "number": "Hausnummer",
+      "zip": "PLZ",
+      "city": "Ort",
+      "country": "Land"
+    }
+  },
+  "core": {
+    "login": {
+      "title": "SkillFlowAI",
+      "or": "Oder",
+      "username": "Benutzer",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "email": "E-Mail",
+      "organization": "Organisation",
+      "password": "Passwort",
+      "rememberMe": "Angemeldet bleiben",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Sie haben noch kein Konto?",
+      "createOne": "Registrieren",
+      "button": "Fortfahren"
+    },
+    "register": {
+      "title": "SkillFlowAI",
+      "alreadyAccount": "Sie haben bereits ein Konto?",
+      "login": "Anmelden",
+      "button": "Fortfahren"
+    },
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "notFound": {
+      "title": "Bist du verloren?",
+      "message": "Tut mir leid, wir konnten die Seite nicht finden.",
+      "backButton": "Zurück zur Startseite"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "organization": "Organisation",
+      "members": "Mitglieder",
+      "trainings": "Schulungen",
+      "faq": "FAQ",
+      "admin": "Admin",
+      "not-found": "404",
+      "theme-switch": "Theme Switch",
+      "language-switch": "Sprache Ändern",
+      "logout": "Ausloggen"
+    }
+  }
+}

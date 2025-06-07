@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [RouterModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'angular-starter-nx';
+  private translateService = inject(TranslateService);
+
+  constructor() {
+    this.translateService.addLangs(['en', 'de']);
+    this.translateService.setDefaultLang('de');
+    this.translateService.use('de');
+  }
 }
