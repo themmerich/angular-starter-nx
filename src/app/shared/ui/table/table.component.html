@@ -1,0 +1,106 @@
+<p-table
+  #dt2
+  dataKey="id"
+  metaKeySelection="false"
+  selectionMode="single"
+  stripedRows
+  [columns]="columns"
+  [currentPageReportTemplate]="currentPageReportTemplate"
+  [ngClass]="customClass"
+  [paginator]="true"
+  [resizableColumns]="true"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 20, 50]"
+  [showCurrentPageReport]="true"
+  [showGridlines]="true"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [value]="data"
+  [(selection)]="selectedData"
+  (onRowReorder)="onRowReorder($event)"
+  (onRowSelect)="onRowSelect($event)">
+  <!--ng-template #caption>
+    <div class="flex">
+      <p-iconfield iconPosition="left" class="ml-auto">
+        <p-inputicon><i class="pi pi-search"></i></p-inputicon>
+        <input
+          pInputText
+          type="text"
+          (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="{{ searchPlaceholder }}"
+        />
+      </p-iconfield>
+    </div>
+  </ng-template-->
+
+  <ng-template #header>
+    <tr>
+      @if (reorder) {
+        <th style="width: 3rem"></th>
+      }
+      @for (col of columns; track col.field) {
+        @if (col.sort) {
+          <th pSortableColumn="{{ col.field }}">{{ col.header | translate }} <p-sortIcon field="{{ col.field }}" /></th>
+        } @else if (reorder) {
+          <th pReorderableColumn>{{ col.header | translate }}</th>
+        } @else {
+          <th>{{ col.header | translate }}</th>
+        }
+      }
+      @if (showEdit || showDelete) {
+        <th></th>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template #body let-columns="columns" let-index="rowIndex" let-rowData>
+    <tr [pReorderableRow]="index" [pSelectableRow]="rowData">
+      @if (reorder) {
+        <td>
+          <span class="pi pi-bars" pReorderableRowHandle></span>
+        </td>
+      }
+      @for (col of columns; track col.field) {
+        @if (col.type === 'date') {
+          <td>{{ rowData[col.field] | date: 'dd.MM.yyyy' }}</td>
+        } @else if (col.type === 'option') {
+          <td>{{ rowData[col.field] | optionName }}</td>
+        } @else if (col.type === 'options') {
+          <td>{{ rowData[col.field] | optionNames }}</td>
+        } @else if (col.type === 'icon') {
+          <td><i [class]="getIcon(rowData[col.field])"></i></td>
+        } @else if (col.type === 'boolean') {
+          <td class="text-center"><p-checkbox disabled [binary]="true" [ngModel]="rowData[col.field]" /></td>
+        } @else {
+          <td>{{ rowData[col.field] }}</td>
+        }
+      }
+      @if (showEdit || showDelete) {
+        <td class="text-center">
+          @if (showEdit) {
+            <button
+              class="p-button-sm p-button-text text-emerald-500"
+              icon="pi pi-pencil"
+              pButton
+              type="button"
+              (click)="onEdit(rowData)"></button>
+          }
+          @if (showDelete) {
+            <button
+              class="p-button-sm p-button-text p-button-danger"
+              icon="pi pi-trash"
+              pButton
+              type="button"
+              (click)="confirmDelete(rowData)"></button>
+          }
+        </td>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template #emptymessage>
+    <tr>
+      <td [attr.colspan]="getColumnLength()">{{ emptyMsg | translate }}</td>
+    </tr>
+  </ng-template>
+  <p-confirmDialog [key]="key" />
+</p-table>

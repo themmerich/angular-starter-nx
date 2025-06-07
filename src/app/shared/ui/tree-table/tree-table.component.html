@@ -1,0 +1,123 @@
+<p-treeTable
+  #tt1
+  dataKey="id"
+  metaKeySelection="false"
+  selectionMode="single"
+  [columns]="columns"
+  [currentPageReportTemplate]="currentPageReportTemplate"
+  [ngClass]="customClass"
+  [paginator]="true"
+  [resizableColumns]="true"
+  [rowTrackBy]="rowTrackBy"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 20, 50]"
+  [showCurrentPageReport]="true"
+  [showGridlines]="true"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [value]="data"
+  [(selection)]="selectedData">
+  <!--ng-template #caption>
+    <div class="flex">
+      <p-iconfield iconPosition="left" class="ml-auto">
+        <p-inputicon><i class="pi pi-search"></i></p-inputicon>
+        <input
+          pInputText
+          type="text"
+          (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="{{ searchPlaceholder }}"
+        />
+      </p-iconfield>
+    </div>
+  </ng-template-->
+
+  <ng-template #header let-columns>
+    <tr>
+      @for (col of columns; track col.field) {
+        <th style="{{ col.headerStyle }}">{{ col.header | translate }}</th>
+      }
+      @if (showEdit || showDelete) {
+        <th></th>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template #body let-columns="columns" let-rowData="rowData" let-rowNode>
+    <tr [ttRow]="rowNode">
+      @for (col of columns; track col.field; let index = $index) {
+        @if (col.type === 'date') {
+          <td>
+            @if (index === 0) {
+              <p-treeTableToggler [rowNode]="rowNode" />
+            }
+            {{ rowData[col.field] | date: 'dd.MM.yyyy' }}
+          </td>
+        } @else if (col.type === 'option') {
+          <td>
+            @if (index === 0) {
+              <p-treeTableToggler [rowNode]="rowNode" />
+            }
+            {{ rowData[col.field] | optionName }}
+          </td>
+        } @else if (col.type === 'options') {
+          <td>
+            @if (index === 0) {
+              <p-treeTableToggler [rowNode]="rowNode" />
+            }
+            {{ rowData[col.field] | optionNames }}
+          </td>
+        } @else if (col.type === 'icon') {
+          <td class="text-center">
+            @if (index === 0) {
+              <p-treeTableToggler [rowNode]="rowNode" />
+            }
+            <i [class]="getIcon(rowData[col.field])"></i>
+          </td>
+        } @else if (col.type === 'rating') {
+          @if (rowData.type === 'lesson') {
+            <td></td>
+          } @else {
+            <td class="text-center">
+              <p-rating readonly [(ngModel)]="rowData.rating" />
+            </td>
+          }
+        } @else {
+          <td [class]="getChildRowStyle(rowData)">
+            @if (index === 0) {
+              <p-treeTableToggler [rowNode]="rowNode" />
+            }
+            {{ rowData[col.field] }}
+          </td>
+        }
+      }
+      @if (showEdit || showDelete) {
+        <td class="text-center">
+          @if (showEdit && rowData['showEdit'] === true) {
+            <button
+              class="p-button-sm p-button-text text-emerald-500"
+              icon="pi pi-pencil"
+              pButton
+              type="button"
+              (click)="onEdit(rowData)"></button>
+          } @else {
+            <button class="p-button-sm p-button-text text-transparent" disabled icon="pi pi-pencil" pButton type="button"></button>
+          }
+          @if (showDelete) {
+            <button
+              class="p-button-sm p-button-text p-button-danger"
+              icon="pi pi-trash"
+              pButton
+              type="button"
+              (click)="confirmDelete(rowData)"></button>
+          }
+        </td>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template #emptymessage>
+    <tr>
+      <td [attr.colspan]="getColumnLength()">{{ emptyMsg | translate }}</td>
+    </tr>
+  </ng-template>
+</p-treeTable>
+<p-confirmDialog [key]="key" />

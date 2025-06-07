@@ -1,0 +1,22 @@
+<div
+  class="px-6 py-20 md:px-12 lg:px-20 flex items-center justify-center bg-[linear-gradient(-225deg,var(--p-primary-500),var(--p-primary-700)_48%,var(--p-primary-800))] dark:bg-[linear-gradient(-225deg,var(--p-primary-400),var(--p-primary-600)_48%,var(--p-primary-800))]">
+  <div class="p-12 shadow text-center lg:w-[30rem] backdrop-blur-md rounded-xl bg-[rgba(255,255,255,0.1)]">
+    <div class="text-4xl font-medium mb-12 text-primary-contrast">{{ 'login.title' | translate }}</div>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <sf-login-input fieldName="username" [control]="loginForm.controls.username" />
+      <sf-login-input fieldName="password" type="password" [control]="loginForm.controls.password" />
+      <button
+        class="max-w-40 w-full rounded-full appearance-none border-0 p-4 outline-0 text-xl mb-6 font-medium bg-white/30 hover:bg-white/40 active:bg-white/20 text-primary-contrast/80 cursor-pointer transition-colors duration-150"
+        type="submit">
+        {{ 'shared.button.login' | translate }}
+      </button>
+      <div class="flex items-center justify-center gap-2">
+        <a class="cursor-pointer font-medium block text-center text-primary-contrast">{{ 'core.login.forgotPassword' | translate }}</a>
+        <span>|</span>
+        <a class="cursor-pointer font-medium block text-center text-primary-contrast" routerLink="/register">{{
+          'core.login.register' | translate
+        }}</a>
+      </div>
+    </form>
+  </div>
+</div>
